@@ -106,10 +106,10 @@
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
   }
   50% {
-    box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
+    box-shadow: 0 0 40px rgba(34, 211, 238, 0.8);
   }
 }
 
@@ -141,6 +141,15 @@
   }
   100% {
     background-position: 200% 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 
@@ -182,12 +191,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #a855f7, #ec4899);
+  background: linear-gradient(180deg, #0891b2, #06b6d4);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #9333ea, #db2777);
+  background: linear-gradient(180deg, #0e7490, #0891b2);
 }
 
 /* Glass Effect */
@@ -199,7 +208,7 @@
 
 /* Gradient Text */
 .gradient-text {
-  background: linear-gradient(135deg, #a855f7, #ec4899, #f59e0b);
+  background: linear-gradient(135deg, #3b82f6, #06b6d4, #0891b2);
   background-size: 300% 300%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -232,7 +241,7 @@ html {
 .btn-gradient {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(45deg, #a855f7, #ec4899);
+  background: linear-gradient(45deg, #3b82f6, #06b6d4);
   transition: all 0.3s ease;
 }
 
