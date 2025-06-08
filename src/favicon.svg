@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="800px" height="800px" viewBox="0 0 800 800" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="gradient">
             <stop stop-color="#3B82F6" offset="0%"/>
@@ -7,9 +7,9 @@
         </linearGradient>
     </defs>
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <rect fill="url(#gradient)" x="0" y="0" width="800" height="800" rx="400"/>
-        <text x="400" y="460" font-family="Arial-BoldMT, Arial" font-size="320" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
+        <rect fill="url(#gradient)" x="0" y="0" width="32" height="32" rx="16"/>
+        <text x="16" y="22" font-family="Arial-BoldMT, Arial" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
             BT
         </text>
     </g>
-</svg>
+</svg> 

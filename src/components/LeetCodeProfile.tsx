@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -82,8 +81,12 @@ const LeetCodeProfile = () => {
       <Card className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-lg border-white/10">
         <CardHeader className="text-center pb-4">
           <div className="flex justify-center mb-4">
-            <div className="w-24 h-24 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-              <User className="w-12 h-12 text-white" />
+            <div className="w-24 h-24 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center overflow-hidden">
+              <img 
+                src="/profile_image.jpg" 
+                alt="Bhanu Teja Makkineni"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
           <CardTitle className="text-3xl text-white mb-2">Bhanu Teja</CardTitle>
@@ -107,7 +110,7 @@ const LeetCodeProfile = () => {
       </Card>
 
       {/* Stats Overview */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="bg-gradient-to-br from-green-500/10 to-green-600/10 backdrop-blur-lg border-green-400/20 hover:border-green-400/40 transition-all duration-300">
           <CardContent className="p-6 text-center">
             <div className="text-4xl font-bold text-green-400 mb-2">{stats.totalSolved}</div>
@@ -147,7 +150,7 @@ const LeetCodeProfile = () => {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
 
       {/* Languages */}
       <Card className="bg-slate-800/50 backdrop-blur-lg border-white/10">
@@ -161,20 +164,20 @@ const LeetCodeProfile = () => {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-400 mb-2">Python3</div>
-              <div className="text-4xl font-bold text-white mb-2">{stats.languages.python3}</div>
-              <div className="text-gray-400">problems solved</div>
+              {/* <div className="text-4xl font-bold text-white mb-2">{stats.languages.python3}</div> */}
+              {/* <div className="text-gray-400">problems solved</div> */}
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-orange-400 mb-2">Java</div>
-              <div className="text-4xl font-bold text-white mb-2">{stats.languages.java}</div>
-              <div className="text-gray-400">problems solved</div>
+              {/* <div className="text-4xl font-bold text-white mb-2">{stats.languages.java}</div> */}
+              {/* <div className="text-gray-400">problems solved</div> */}
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Problem Difficulty Breakdown */}
-      <Card className="bg-slate-800/50 backdrop-blur-lg border-white/10">
+      {/* <Card className="bg-slate-800/50 backdrop-blur-lg border-white/10">
         <CardHeader>
           <CardTitle className="text-white flex items-center gap-2">
             <Target className="w-5 h-5 text-cyan-400" />
@@ -182,7 +185,6 @@ const LeetCodeProfile = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-8">
-          {/* Easy */}
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-green-400 font-bold text-lg">Easy</span>
@@ -200,8 +202,6 @@ const LeetCodeProfile = () => {
               {getPercentage(stats.easySolved, stats.easyTotal)}%
             </div>
           </div>
-
-          {/* Medium */}
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-yellow-400 font-bold text-lg">Medium</span>
@@ -220,7 +220,6 @@ const LeetCodeProfile = () => {
             </div>
           </div>
 
-          {/* Hard */}
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-red-400 font-bold text-lg">Hard</span>
@@ -239,10 +238,10 @@ const LeetCodeProfile = () => {
             </div>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* Badges Section */}
-      <Card className="bg-slate-800/50 backdrop-blur-lg border-white/10">
+      {/* <Card className="bg-slate-800/50 backdrop-blur-lg border-white/10">
         <CardHeader>
           <CardTitle className="text-white flex items-center gap-2">
             <Trophy className="w-5 h-5 text-cyan-400" />
@@ -269,7 +268,7 @@ const LeetCodeProfile = () => {
             </div>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* Profile Link */}
       <div className="text-center">

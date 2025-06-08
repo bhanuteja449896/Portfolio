@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Github, Linkedin, Mail, ExternalLink, Code, User, Briefcase, Star, Download, Phone, Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,9 +7,19 @@ import LeetCodeProfile from '@/components/LeetCodeProfile';
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
+    
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (isMobileMenuOpen && !target.closest('.mobile-menu') && !target.closest('.menu-button')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
     
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'projects', 'leetcode', 'resume', 'contact'];
@@ -31,8 +40,11 @@ const Index = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -42,32 +54,93 @@ const Index = () => {
   };
 
   const skills = [
-    { name: 'Python', level: 85, color: 'from-blue-400 to-blue-600', icon: '🐍' },
-    { name: 'Java', level: 80, color: 'from-orange-400 to-red-500', icon: '☕' },
-    { name: 'JavaScript', level: 88, color: 'from-yellow-400 to-orange-500', icon: '⚡' },
-    { name: 'React.js', level: 90, color: 'from-cyan-400 to-blue-500', icon: '⚛️' },
-    { name: 'Node.js', level: 75, color: 'from-green-400 to-green-600', icon: '🚀' },
-    { name: 'Spring Boot', level: 70, color: 'from-green-500 to-green-700', icon: '🍃' },
-    { name: 'Firebase', level: 82, color: 'from-yellow-400 to-orange-600', icon: '🔥' },
-    { name: 'GitHub', level: 85, color: 'from-gray-400 to-gray-600', icon: '🐙' },
+    { name: 'Java', level: 85, color: 'from-orange-400 to-red-500', icon: '☕' },
+    { name: 'Spring Boot', level: 80, color: 'from-green-500 to-green-700', icon: '🍃' },
+    { name: 'React.js', level: 88, color: 'from-cyan-400 to-blue-500', icon: '⚛️' },
+    { name: 'JavaScript', level: 85, color: 'from-yellow-400 to-orange-500', icon: '⚡' },
+    { name: 'MySQL', level: 82, color: 'from-blue-400 to-blue-600', icon: '🗃️' },
+    { name: 'REST APIs', level: 85, color: 'from-purple-400 to-purple-600', icon: '🔌' },
+    { name: 'Git', level: 80, color: 'from-gray-400 to-gray-600', icon: '🔄' },
+    { name: 'MongoDB', level: 75, color: 'from-green-400 to-green-600', icon: '🍃' },
   ];
 
   const projects = [
     {
-      title: 'Class Archive',
-      description: 'A web-based platform designed to store and manage lecture materials for educational institutions. Students can easily access and download various types of files (PDFs, images, presentations, etc.), organized by subject for convenient browsing.',
-      tech: ['React.js', 'Node.js', 'Express.js', 'Firebase'],
-      github: 'https://github.com/bhanuteja449896/ad1',
-      features: ['Centralized repository for students', 'Admin functionality for content management', 'Subject-wise organization', 'Multiple file format support']
+      title: 'Resume ATS Score',
+      description: 'An innovative web application that analyzes resumes using AI to provide ATS (Applicant Tracking System) compatibility scores and suggestions for improvement. Built with Spring Boot backend integrating OpenAI API and a modern React.js frontend.',
+      tech: ['Spring Boot', 'OpenAI API', 'React.js', 'Tailwind CSS', 'Java'],
+      github: 'https://github.com/bhanuteja449896/resume-ats-score',
+      features: [
+        'AI-powered resume analysis using OpenAI integration',
+        'Real-time ATS compatibility scoring',
+        'Detailed improvement suggestions for resume optimization',
+        'Modern UI with Tailwind CSS and React.js',
+        'Secure API handling with Spring Boot'
+      ]
     },
     {
-      title: 'Gatepass Management System',
-      description: 'A college security management system designed to streamline the student gate pass approval process. Students request permission from their HOD, and upon approval, security personnel can verify permissions in real-time.',
-      tech: ['React.js', 'Node.js', 'MongoDB', 'Express.js'],
+      title: 'Wallet Payment System',
+      description: 'A scalable payment processing platform supporting multiple independent merchant environments. Features include secure transaction processing, comprehensive user management, and detailed financial reporting capabilities.',
+      tech: ['Spring Boot', 'React.js', 'Node.js', 'MongoDB', 'JWT'],
+      github: 'https://github.com/bhanuteja449896/EventPaymentSystem',
+      features: [
+        'Multi-merchant environment support',
+        'Secure transaction processing with Spring Security',
+        'JWT-based authentication and authorization',
+        'Interactive merchant dashboard with data visualization',
+        'Real-time financial reporting and analytics'
+      ]
+    },
+    {
+      title: 'College Gatepass System',
+      description: 'A digitalized college gatepass management system that streamlines the approval workflow between students and department heads. The system reduced processing time by 75% compared to the traditional paper-based system.',
+      tech: ['Spring Boot', 'MongoDB', 'Spring Security'],
       github: 'https://github.com/bhanuteja449896/gatepass',
-      features: ['HOD approval workflow', 'Real-time verification', 'Database integration', 'Security personnel access']
+      features: [
+        'Automated approval workflows',
+        'Role-based access for department heads',
+        'Real-time request tracking and notifications',
+        'Secure data handling with Spring Security',
+        '75% reduction in processing time'
+      ]
+    },
+    {
+      title: 'Clinic Management System',
+      description: 'A high-performance clinic management solution handling 100+ daily appointments with secure online scheduling. Features include PCI-compliant payment processing, comprehensive patient management, and optimized performance for high concurrent usage.',
+      tech: ['Spring Boot', 'React.js', 'MongoDB', 'Payment Gateway'],
+      github: 'https://github.com/bhanuteja449896/clinic',
+      features: [
+        'High-traffic appointment scheduling system',
+        'PCI-compliant payment processing (500+ monthly transactions)',
+        'Secure patient records management',
+        'Advanced admin portal with physician scheduling',
+        'Optimized for 50+ concurrent users with 99.9% uptime'
+      ]
+    },
+    {
+      title: 'Class Archive',
+      description: 'A full-stack educational resource management system enabling students to access and download lecture materials with role-based permissions. The system features secure file handling, real-time document management, and a responsive interface.',
+      tech: ['Spring Boot', 'React.js', 'Node.js', 'MongoDB', 'JWT'],
+      github: 'https://github.com/bhanuteja449896/ad1',
+      features: [
+        'Secure file upload/download with Spring Security & JWT',
+        'Role-based access control for content management',
+        'Real-time document preview and management',
+        'Responsive React.js frontend with Material UI',
+        'MongoDB integration for efficient data storage'
+      ]
     }
   ];
+
+  const handleDownloadResume = () => {
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = '/bhanutejamakkineni.pdf';
+    link.download = 'bhanuteja_makkineni_resume.pdf'; // Name for the downloaded file
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white overflow-x-hidden">
@@ -98,11 +171,40 @@ const Index = () => {
               </div>
             </div>
             <div className="md:hidden">
-              <Button variant="ghost" size="sm">
-                ☰
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-white menu-button"
+              >
+                {isMobileMenuOpen ? '✕' : '☰'}
               </Button>
             </div>
           </div>
+          
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden absolute top-16 left-0 right-0 bg-black/95 backdrop-blur-lg border-b border-white/10 p-4 mobile-menu">
+              <div className="flex flex-col space-y-2">
+                {['home', 'about', 'skills', 'projects', 'leetcode', 'resume', 'contact'].map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => {
+                      scrollToSection(item);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`px-4 py-3 rounded-md text-sm font-medium transition-all duration-300 capitalize ${
+                      activeSection === item
+                        ? 'text-cyan-400 bg-white/10'
+                        : 'text-gray-300 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
@@ -131,8 +233,12 @@ const Index = () => {
         }`}>
           <div className="mb-8">
             <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 p-1">
-              <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
-                <User className="w-16 h-16 text-blue-400" />
+              <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/profile_image.jpg" 
+                  alt="Bhanu Teja Makkineni"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -142,7 +248,8 @@ const Index = () => {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-2 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
               Bhanu Teja Makkineni
             </h1>
-            <p className="text-xl md:text-2xl text-cyan-400 mb-2">React.js Developer</p>
+            <p className="text-xl md:text-2xl text-cyan-400 mb-2">Full Stack Developer</p>
+            <p className="text-lg text-gray-300 mb-2">Spring Boot | React.js</p>
             <p className="text-lg text-gray-300 mb-8">Based in Hyderabad, India</p>
           </div>
 
@@ -199,10 +306,10 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-gray-300 leading-relaxed">
-                As a fresher React.js developer, I have developed 2 projects using React.js and am passionate about building interactive and responsive web applications. My experience has given me a solid foundation in front-end development and an eagerness to learn new technologies.
+                As a Full Stack Developer, I specialize in building robust and scalable web applications using Spring Boot for backend development and React.js for creating dynamic user interfaces. My experience spans both server-side and client-side development, allowing me to deliver complete end-to-end solutions.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
-                While I am just starting my journey in software development, my enthusiasm and dedication to honing my skills will allow me to contribute to any team effectively. I am confident that my understanding of React.js, along with my commitment to learning and growing as a developer, can bring value to your organization as I continue to develop my technical proficiency.
+                I have a strong foundation in Java and modern JavaScript, with expertise in developing RESTful APIs, managing databases, and implementing responsive front-end designs. My projects demonstrate my ability to handle both backend logic and user experience, making me a versatile developer who can contribute to all aspects of application development.
               </p>
             </div>
             
@@ -212,12 +319,13 @@ const Index = () => {
                   <div className="grid grid-cols-1 gap-4 text-sm">
                     <div><strong>Name:</strong> Bhanu Teja Makkineni</div>
                     <div><strong>Email:</strong> bhanutejamakkineni@gmail.com</div>
+                    <div><strong>Role:</strong> Full Stack Developer</div>
                     <div><strong>Date of birth:</strong> 14 MARCH, 2004</div>
                     <div><strong>From:</strong> Hyderabad, India</div>
                   </div>
                   <div className="flex items-center gap-3 pt-4">
                     <Code className="w-6 h-6 text-cyan-400" />
-                    <span className="text-lg font-bold text-cyan-400">2 Projects Completed</span>
+                    <span className="text-lg font-bold text-cyan-400">Full Stack Projects</span>
                   </div>
                 </div>
               </div>
@@ -242,7 +350,7 @@ const Index = () => {
                   <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">
                     {skill.name}
                   </h3>
-                  <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden mb-2">
+                  {/* <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden mb-2">
                     <div 
                       className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out transform origin-left group-hover:scale-105`}
                       style={{
@@ -250,8 +358,8 @@ const Index = () => {
                         animation: `slideIn 1s ease-out ${index * 0.1}s both`
                       }}
                     />
-                  </div>
-                  <span className="text-cyan-400 font-medium text-sm">{skill.level}%</span>
+                  </div> */}
+                  {/* <span className="text-cyan-400 font-medium text-sm">{skill.level}%</span> */}
                 </CardContent>
               </Card>
             ))}
@@ -365,7 +473,10 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
+            <Button 
+              onClick={handleDownloadResume}
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105"
+            >
               <Download className="w-5 h-5 mr-2" />
               Download Resume
             </Button>
