@@ -299,7 +299,11 @@ function SpotlightCard({
   const opacity = useTransform(scrollProgress, opIn, opOut);
 
   // Scale
-  const scIn = isFirst ? [0, peakEnd, exitAt] : [enterAt, peakStart, peakEnd, exitAt];
+  const scIn = isFirst
+    ? [0, peakEnd, exitAt]
+    : isLast
+    ? [enterAt, peakStart, peakEnd]
+    : [enterAt, peakStart, peakEnd, exitAt];
   const scOut = isFirst
     ? reduced ? [1, 1, 1] : [1, 1, 0.95]
     : isLast

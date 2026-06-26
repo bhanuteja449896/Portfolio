@@ -4,6 +4,7 @@ import Section2About      from "./Section2About";
 import Section3Skills     from "./Section3Skills";
 import Section4Experience from "./Section4Experience";
 import Section5Projects   from "./Section5Projects";
+import Section6ProblemSolving from "./Section6ProblemSolving";
 
 // ─────────────────────────────────────────────────────────────
 // NewSite — entry point for the new portfolio build.
@@ -34,6 +35,9 @@ export default function NewSite() {
 
       {/* ── Section 5: Projects ── */}
       <Section5Projects />
+
+      {/* ── Section 6: Problem Solving ── */}
+      <Section6ProblemSolving />
     </div>
   );
 }
