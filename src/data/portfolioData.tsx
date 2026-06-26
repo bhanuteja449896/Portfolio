@@ -262,7 +262,7 @@ export const EDUCATION_DATA = {
   degree: "B.Tech in Computer Science & Engineering (IoT)",
   institution: "Malla Reddy College of Engineering and Technology",
   period: "NOV 2022 – MAY 2026",
-  cgpa: "9.04",
+  cgpa: "9.07",
   certification: {
     title: "CCNA: Introduction to Networks",
     issuer: "Cisco Certified",
