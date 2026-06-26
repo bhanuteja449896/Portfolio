@@ -1,8 +1,9 @@
 import React from "react";
-import Section1Hero      from "./Section1Hero";
-import Section2About     from "./Section2About";
-import Section3Skills    from "./Section3Skills";
+import Section1Hero       from "./Section1Hero";
+import Section2About      from "./Section2About";
+import Section3Skills     from "./Section3Skills";
 import Section4Experience from "./Section4Experience";
+import Section5Projects   from "./Section5Projects";
 
 // ─────────────────────────────────────────────────────────────
 // NewSite — entry point for the new portfolio build.
@@ -30,6 +31,9 @@ export default function NewSite() {
 
       {/* ── Section 4: Experience ── */}
       <Section4Experience />
+
+      {/* ── Section 5: Projects ── */}
+      <Section5Projects />
     </div>
   );
 }
