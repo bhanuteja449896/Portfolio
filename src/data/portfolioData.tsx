@@ -251,8 +251,8 @@ export const ACHIEVEMENTS_DATA = [
   {
     title: "Problem Solving Discipline",
     description:
-      "Solved 800+ LeetCode problems demonstrating strong algorithmic thinking and consistency.",
-    badge: "800+ Problems Solved",
+      "Solved 900+ LeetCode problems demonstrating strong algorithmic thinking and consistency.",
+    badge: "900+ Problems Solved",
     iconKey: "Code",
   },
 ];
