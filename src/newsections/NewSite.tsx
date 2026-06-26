@@ -7,6 +7,7 @@ import Section5Projects from "./Section5Projects";
 import Section6ProblemSolving from "./Section6ProblemSolving";
 import Section7Achievements from "./Section7Achievements";
 import Section8Education from "./Section8Education";
+import Section9Contact from "./Section9Contact";
 
 // ─────────────────────────────────────────────────────────────
 // NewSite — entry point for the new portfolio build.
@@ -46,6 +47,9 @@ export default function NewSite() {
 
       {/* ── Section 8: Education & Certifications ── */}
       <Section8Education />
+
+      {/* ── Section 9: Get In Touch ── */}
+      <Section9Contact />
     </div>
   );
 }
