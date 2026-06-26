@@ -96,54 +96,6 @@ const CARDS: CardItem[] = [
 const PILLS = ["FastAPI", "Django", "React.js", "PostgreSQL", "AWS"];
 
 /* ------------------------------------------------------------------ */
-/* Custom cursor (desktop only)                                        */
-/* ------------------------------------------------------------------ */
-
-type CursorVariant = "default" | "cta" | "card";
-
-function CustomCursor({ variant }: { variant: CursorVariant }) {
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const springCfg = { damping: 28, stiffness: 450, mass: 0.5 };
-  const sx = useSpring(x, springCfg);
-  const sy = useSpring(y, springCfg);
-
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
-    };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, [x, y]);
-
-  const size = variant === "cta" ? 56 : variant === "card" ? 40 : 10;
-
-  return (
-    <motion.div
-      aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-[100] hidden -translate-x-1/2 -translate-y-1/2 rounded-full md:block"
-      style={{ x: sx, y: sy, translateX: "-50%", translateY: "-50%" }}
-      animate={{
-        width: size,
-        height: size,
-        backgroundColor:
-          variant === "default" ? ACCENT : "rgba(41,141,255,0.12)",
-        border:
-          variant === "default"
-            ? `1px solid ${ACCENT}`
-            : `1.5px solid ${ACCENT}`,
-        boxShadow:
-          variant === "default"
-            ? "0 0 12px rgba(41,141,255,0.8)"
-            : "0 0 22px rgba(41,141,255,0.45)",
-      }}
-      transition={{ type: "spring", damping: 20, stiffness: 300 }}
-    />
-  );
-}
-
-/* ------------------------------------------------------------------ */
 /* Floating tilt card                                                  */
 /* ------------------------------------------------------------------ */
 
@@ -151,12 +103,10 @@ function TiltCard({
   card,
   scrollY,
   reduced,
-  onHover,
 }: {
   card: CardItem;
   scrollY: MotionValue<number>;
   reduced: boolean;
-  onHover: (v: CursorVariant) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const rx = useMotionValue(0);
@@ -177,7 +127,6 @@ function TiltCard({
   const handleLeave = () => {
     rx.set(0);
     ry.set(0);
-    onHover("default");
   };
 
   return (
@@ -186,7 +135,6 @@ function TiltCard({
       variants={cardVariants}
       style={{ y: reduced ? 0 : parallax, rotate: card.rotate }}
       className={`group absolute ${card.className}`}
-      onMouseEnter={() => onHover("card")}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
     >
@@ -325,7 +273,6 @@ export default function Section1Hero({
 }) {
   const reduced = useReducedMotion() ?? false;
   const sectionRef = useRef<HTMLElement>(null);
-  const [cursor, setCursor] = useState<CursorVariant>("default");
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -344,9 +291,8 @@ export default function Section1Hero({
     <section
       id="home"
       ref={sectionRef}
-      className="hero-cursor-none relative isolate min-h-screen w-full overflow-hidden bg-black text-white"
+      className="relative isolate min-h-screen w-full overflow-hidden bg-black text-white"
     >
-      <CustomCursor variant={cursor} />
       <HeroBackground scrollY={smoothScroll} reduced={reduced} />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pt-28 pb-20 sm:px-8 lg:px-12">
@@ -419,8 +365,6 @@ export default function Section1Hero({
               <motion.button
                 type="button"
                 onClick={onPrimary}
-                onMouseEnter={() => setCursor("cta")}
-                onMouseLeave={() => setCursor("default")}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold text-white"
@@ -437,8 +381,6 @@ export default function Section1Hero({
               <motion.button
                 type="button"
                 onClick={onSecondary}
-                onMouseEnter={() => setCursor("cta")}
-                onMouseLeave={() => setCursor("default")}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.02] px-7 py-3.5 text-sm font-semibold text-white/90 transition-colors duration-300 hover:border-[#298DFF]/60 hover:bg-white/[0.05]"
@@ -486,7 +428,6 @@ export default function Section1Hero({
                 card={card}
                 scrollY={smoothScroll}
                 reduced={reduced}
-                onHover={setCursor}
               />
             ))}
 

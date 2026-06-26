@@ -3,8 +3,10 @@ import Section1Hero       from "./Section1Hero";
 import Section2About      from "./Section2About";
 import Section3Skills     from "./Section3Skills";
 import Section4Experience from "./Section4Experience";
-import Section5Projects   from "./Section5Projects";
+import Section5Projects from "./Section5Projects";
 import Section6ProblemSolving from "./Section6ProblemSolving";
+import Section7Achievements from "./Section7Achievements";
+import Section8Education from "./Section8Education";
 
 // ─────────────────────────────────────────────────────────────
 // NewSite — entry point for the new portfolio build.
@@ -38,6 +40,12 @@ export default function NewSite() {
 
       {/* ── Section 6: Problem Solving ── */}
       <Section6ProblemSolving />
+
+      {/* ── Section 7: Achievements ── */}
+      <Section7Achievements />
+
+      {/* ── Section 8: Education & Certifications ── */}
+      <Section8Education />
     </div>
   );
 }
