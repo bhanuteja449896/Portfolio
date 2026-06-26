@@ -8,6 +8,8 @@ import {
   useSpring,
   useTransform,
   useMotionTemplate,
+  useScroll,
+  MotionValue,
 } from "framer-motion";
 
 const ACCENT = "#298DFF";
@@ -188,124 +190,135 @@ function InnerCard({
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
+   Scroll Wrapper Component
+───────────────────────────────────────────────────────────────────────── */
+function StackedCard({
+  achievement,
+  index,
+  progress,
+}: {
+  achievement: any;
+  index: number;
+  progress: MotionValue<number>;
+}) {
+  let yRange = [0, 0];
+  let xRange = [0, 0];
+  let scaleRange = [1, 1];
+  let opacityRange = [1, 1];
+  let domain = [0, 0.33, 0.66, 1];
+
+  if (index === 0) {
+    domain = [0, 0.33, 0.55];
+    yRange = [0, 0, 0];
+    xRange = [0, 0, -800];
+    scaleRange = [1, 1, 0.9];
+    opacityRange = [1, 1, 0];
+  } else if (index === 1) {
+    domain = [0, 0.33, 0.66, 0.88];
+    yRange = [40, 0, 0, 0];
+    xRange = [0, 0, 0, -800];
+    scaleRange = [0.92, 1, 1, 0.9];
+    opacityRange = [1, 1, 1, 0];
+  } else if (index === 2) {
+    domain = [0, 0.33, 0.66, 1];
+    yRange = [80, 40, 0, 0];
+    xRange = [0, 0, 0, 0];
+    scaleRange = [0.84, 0.92, 1, 1];
+    opacityRange = [1, 1, 1, 1];
+  }
+
+  const y = useTransform(progress, domain, yRange);
+  const x = useTransform(progress, domain, xRange);
+  const scale = useTransform(progress, domain, scaleRange);
+  const opacity = useTransform(progress, domain, opacityRange);
+
+  return (
+    <motion.div
+      style={{
+        y,
+        x,
+        scale,
+        opacity,
+        zIndex: 30 - index,
+        transformOrigin: "center center"
+      }}
+      className="absolute top-0 left-0 w-full h-[380px]"
+    >
+      <InnerCard achievement={achievement} index={index} />
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
    Main Section Component
 ───────────────────────────────────────────────────────────────────────── */
 export default function Section7Achievements() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { margin: "-20% 0px", once: false });
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
-  // Handle mobile check for simplified layout
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  // Apply a spring layer to the raw scroll progress for buttery smooth transitions
+  const smoothProgress = useSpring(scrollYProgress, {
+    damping: 25,
+    stiffness: 120,
+    mass: 0.5
+  });
 
   return (
     <section
       ref={containerRef}
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black py-24 md:py-32"
+      className="relative h-[400vh] bg-black"
     >
-      {/* ── Ambient Background Glow ── */}
-      <motion.div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{
-          background:
-            "radial-gradient(ellipse, rgba(41,141,255,0.06) 0%, transparent 60%)",
-          filter: "blur(60px)",
-        }}
-        animate={{
-          scale: [1, 1.05, 1],
-          opacity: [0.5, 0.7, 0.5],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {/* ── Sticky Container ── */}
+      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden py-24">
+        
+        {/* ── Ambient Background Glow ── */}
+        <motion.div
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full z-0"
+          style={{
+            background:
+              "radial-gradient(ellipse, rgba(41,141,255,0.06) 0%, transparent 60%)",
+            filter: "blur(60px)",
+          }}
+          animate={{
+            scale: [1, 1.05, 1],
+            opacity: [0.5, 0.7, 0.5],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
 
-      {/* ── Section Header ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-        transition={{ duration: 0.8, ease: EASE }}
-        className="relative z-10 mb-16 flex flex-col items-center text-center px-4"
-      >
-        <span
-          className="mb-4 text-[11.5px] font-semibold uppercase tracking-[0.25em]"
-          style={{ color: ACCENT }}
-        >
-          07 — Achievements
-        </span>
-        <h2 className="mb-4 text-3xl font-bold tracking-tight text-white md:text-5xl">
-          Proof of Impact
-        </h2>
-        <p className="max-w-md text-[14.5px] leading-relaxed text-white/50">
-          Real execution. Real consistency. Real outcomes. 
-          Building solutions that matter and communities that scale.
-        </p>
-      </motion.div>
-
-      {/* ── 3D Card Wall ── */}
-      <div
-        className="relative z-10 w-full max-w-6xl px-4"
-        style={{ perspective: 1800 }} // Establishes the 3D space
-      >
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
-          {ACHIEVEMENTS.map((ach, i) => {
-            // Determine static 3D placement based on index (desktop only)
-            const isLeft = i === 0;
-            const isCenter = i === 1;
-            const isRight = i === 2;
-
-            const targetRotateY = isMobile ? 0 : isLeft ? 15 : isRight ? -15 : 0;
-            const targetZ = isMobile ? 0 : isCenter ? 60 : -40;
-            const targetX = isMobile ? 0 : isLeft ? 30 : isRight ? -30 : 0;
-
-            // Animate in from a slightly lower and more distant position
-            const initialY = 60;
-            const initialRotateY = isMobile ? 0 : isLeft ? 30 : isRight ? -30 : 0;
-            const initialZ = -100;
-
-            return (
-              <motion.div
-                key={i}
-                initial={{
-                  opacity: 0,
-                  y: initialY,
-                  rotateY: initialRotateY,
-                  z: initialZ,
-                  x: 0,
-                }}
-                animate={
-                  isInView
-                    ? {
-                        opacity: 1,
-                        y: 0,
-                        rotateY: targetRotateY,
-                        z: targetZ,
-                        x: targetX,
-                      }
-                    : {
-                        opacity: 0,
-                        y: initialY,
-                        rotateY: initialRotateY,
-                        z: initialZ,
-                        x: 0,
-                      }
-                }
-                transition={{
-                  duration: 1.2,
-                  delay: 0.2 + i * 0.15,
-                  ease: EASE,
-                }}
-                style={{ transformStyle: "preserve-3d" }}
-                className="relative h-[380px] w-full max-w-[340px] shrink-0"
-              >
-                <InnerCard achievement={ach} index={i} />
-              </motion.div>
-            );
-          })}
+        {/* ── Section Header ── */}
+        <div className="relative z-10 mb-12 flex flex-col items-center text-center px-4">
+          <span
+            className="mb-4 text-[11.5px] font-semibold uppercase tracking-[0.25em]"
+            style={{ color: ACCENT }}
+          >
+            07 — Achievements
+          </span>
+          <h2 className="mb-4 text-3xl font-bold tracking-tight text-white md:text-5xl">
+            Proof of Impact
+          </h2>
+          <p className="max-w-md text-[14.5px] leading-relaxed text-white/50">
+            Real execution. Real consistency. Real outcomes. 
+            Building solutions that matter and communities that scale.
+          </p>
         </div>
+
+        {/* ── Scroll Stacked Cards ── */}
+        <div className="relative z-10 w-full max-w-[360px] h-[380px] md:max-w-[400px]">
+          {ACHIEVEMENTS.map((ach, i) => (
+            <StackedCard
+              key={i}
+              achievement={ach}
+              index={i}
+              progress={smoothProgress}
+            />
+          ))}
+        </div>
+
       </div>
     </section>
   );
