@@ -615,8 +615,9 @@ export default function Section5Projects() {
 
   const progress = useSpring(scrollYProgress, {
     damping: 26,
-    stiffness: 88,
-    mass: 0.55,
+    stiffness: 140,
+    mass: 0.3,
+    restDelta: 0.001,
   });
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -635,7 +636,7 @@ export default function Section5Projects() {
       {/* ══════════════════════════════════════════════════════
           DESKTOP — tall sticky spotlight
       ══════════════════════════════════════════════════════ */}
-      <div className="hidden lg:block" style={{ minHeight: "400vh" }}>
+      <div style={{ minHeight: "250vh" }}>
         <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
           <S5Background activeIdx={activeIdx} />
 
@@ -782,7 +783,7 @@ export default function Section5Projects() {
       {/* ══════════════════════════════════════════════════════
           MOBILE — stacked spotlight blocks with reveal
       ══════════════════════════════════════════════════════ */}
-      <div className="relative lg:hidden">
+      <div className="hidden">
         {/* ambient */}
         <div className="pointer-events-none absolute inset-0">
           <div

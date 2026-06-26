@@ -233,11 +233,11 @@ export default function Section2About() {
     <div ref={sectionRef} id="about" className="relative bg-black">
 
       {/* ══════════════════════════════════════════════
-          DESKTOP — sticky scroll storytelling
+          Sticky scroll storytelling
           300vh wrapper → sticky lives for 200vh
       ══════════════════════════════════════════════ */}
-      <div className="hidden lg:block lg:min-h-[300vh]">
-        <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="min-h-[300vh]">
+        <div className="sticky top-0 h-[100dvh] overflow-hidden">
           <AboutBackground />
 
           <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-10 xl:px-14">
@@ -453,142 +453,6 @@ export default function Section2About() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* ══════════════════════════════════════════════
-          MOBILE — stacked whileInView reveal
-      ══════════════════════════════════════════════ */}
-      <div className="relative lg:hidden">
-        <div className="pointer-events-none absolute inset-0">
-          <div
-            className="absolute right-0 top-1/3 h-[280px] w-[280px] rounded-full opacity-50"
-            style={{
-              background: "radial-gradient(circle, rgba(41,141,255,0.24) 0%, transparent 70%)",
-              filter: "blur(36px)",
-            }}
-          />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-lg px-6 py-20">
-          <div className="mb-4 flex items-center gap-3">
-            <span className="h-px w-8" style={{ background: ACCENT }} />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
-              About
-            </span>
-          </div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="font-bold leading-[1.04] tracking-[-0.04em] text-white"
-            style={{ fontSize: "clamp(2.8rem,10vw,3.8rem)" }}
-          >
-            Know Me
-            <br />
-            <span style={{ color: ACCENT }}>More</span>
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-4 text-[14px] leading-[1.8] text-white/45"
-          >
-            Python full stack developer specializing in FastAPI, Django, React.js
-            and SQL, building scalable and secure web applications deployed on AWS.
-          </motion.p>
-
-          <div className="mt-8 flex flex-col gap-3">
-            {(
-              [
-                {
-                  tag: "Name",
-                  icon: <User className="h-3.5 w-3.5" />,
-                  body: (
-                    <>
-                      <h3 className="text-lg font-bold text-white">Bhanu Teja Makkineni</h3>
-                      <p className="mt-1 text-[13px] text-white/48">Python Full Stack Developer</p>
-                      <div className="mt-1.5 flex items-center gap-1.5">
-                        <MapPin className="h-3 w-3" style={{ color: ACCENT }} />
-                        <span className="text-[12px] text-white/34">Hyderabad, India</span>
-                      </div>
-                    </>
-                  ),
-                },
-                {
-                  tag: "Education",
-                  icon: <BookOpen className="h-3.5 w-3.5" />,
-                  body: (
-                    <>
-                      <h3 className="text-[13px] font-semibold text-white">B.Tech CSE (IoT)</h3>
-                      <p className="mt-1 text-[12px] text-white/42">
-                        Malla Reddy College · Nov 2022 – May 2026
-                      </p>
-                      <span className="mt-2 inline-block text-[12px] font-bold" style={{ color: ACCENT }}>
-                        CGPA 9.04
-                      </span>
-                    </>
-                  ),
-                },
-                {
-                  tag: "Stats",
-                  icon: <Trophy className="h-3.5 w-3.5" />,
-                  body: (
-                    <div className="space-y-1.5">
-                      {[["800+","LeetCode problems"],["2+","client projects"],["500+","community members"]].map(([v,l]) => (
-                        <p key={v} className="text-sm text-white">
-                          <span className="font-bold">{v}</span>{" "}
-                          <span className="text-white/45">{l}</span>
-                        </p>
-                      ))}
-                    </div>
-                  ),
-                },
-              ] as const
-            ).map(({ tag, icon, body }, i) => (
-              <motion.div
-                key={tag}
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative overflow-hidden rounded-2xl bg-[#080808] p-4"
-                style={{ border: "1px solid rgba(41,141,255,0.24)" }}
-              >
-                <span
-                  className="absolute left-0 top-4 w-[3px] rounded-full"
-                  style={{ background: ACCENT, height: 28, boxShadow: `0 0 10px ${ACCENT}` }}
-                />
-                <span
-                  className="absolute right-3 top-3 h-[6px] w-[6px] rounded-full"
-                  style={{ background: ACCENT, boxShadow: `0 0 6px ${ACCENT}` }}
-                />
-                <span
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{
-                    background: "radial-gradient(100px 90px at 20% 0%, rgba(41,141,255,0.14), transparent 70%)",
-                  }}
-                />
-                <div className="pl-4">
-                  <div className="mb-2.5 flex items-center gap-1.5">
-                    <span className="flex" style={{ color: ACCENT }}>{icon}</span>
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: ACCENT }}>
-                      {tag}
-                    </span>
-                  </div>
-                  {body}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <p className="mt-7 text-[10px] uppercase tracking-[0.18em] text-white/18">
-            Performance. Architecture. Real-world execution.
-          </p>
         </div>
       </div>
 

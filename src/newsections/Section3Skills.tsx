@@ -311,7 +311,7 @@ export default function Section3Skills() {
     [progress, endX] as MotionValue<number>[],
     ([p, e]: number[]) => p * e,
   );
-  const x = useSpring(rawX, { damping: 30, stiffness: 85, mass: 0.7 });
+  const x = useSpring(rawX, { damping: 26, stiffness: 140, mass: 0.3, restDelta: 0.001 });
 
   /* ── Per-panel activity (0=dim, 1=spotlight) ──
      Panels 0–5 peak at progress ≈ 0, 0.2, 0.4, 0.6, 0.8, 1.0
@@ -345,7 +345,7 @@ export default function Section3Skills() {
       {/* ══════════════════════════════════════════
           DESKTOP — 400vh container, sticky inner
       ══════════════════════════════════════════ */}
-      <div className="hidden lg:block lg:min-h-[400vh]">
+      <div className="min-h-[250vh]">
         <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
           <S3Background />
 
@@ -515,7 +515,7 @@ export default function Section3Skills() {
       {/* ══════════════════════════════════════════
           MOBILE — stacked vertical cards
       ══════════════════════════════════════════ */}
-      <div className="relative lg:hidden">
+      <div className="hidden">
         {/* ambient glow */}
         <div className="pointer-events-none absolute inset-0">
           <div

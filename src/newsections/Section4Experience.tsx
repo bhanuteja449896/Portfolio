@@ -506,9 +506,10 @@ export default function Section4Experience() {
   });
 
   const progress = useSpring(scrollYProgress, {
-    damping: 28,
-    stiffness: 90,
-    mass: 0.6,
+    damping: 26,
+    stiffness: 140,
+    mass: 0.3,
+    restDelta: 0.001,
   });
 
   const [progressPct, setProgressPct] = React.useState(0);
@@ -527,7 +528,7 @@ export default function Section4Experience() {
       {/* ════════════════════════════════════════════════════════════
           DESKTOP — tall scrollable section with sticky inner stage
       ════════════════════════════════════════════════════════════ */}
-      <div className="hidden lg:block" style={{ minHeight: "500vh" }}>
+      <div style={{ minHeight: "300vh" }}>
         <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
           <S4Background />
 
@@ -723,7 +724,7 @@ export default function Section4Experience() {
       {/* ════════════════════════════════════════════════════════════
           MOBILE — sequential card reveal
       ════════════════════════════════════════════════════════════ */}
-      <div className="relative lg:hidden">
+      <div className="hidden">
         <div className="pointer-events-none absolute inset-0">
           <div
             className="absolute left-1/2 top-1/4 h-[320px] w-[320px] -translate-x-1/2 rounded-full opacity-50"

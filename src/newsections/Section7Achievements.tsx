@@ -262,15 +262,16 @@ export default function Section7Achievements() {
 
   // Apply a spring layer to the raw scroll progress for buttery smooth transitions
   const smoothProgress = useSpring(scrollYProgress, {
-    damping: 25,
-    stiffness: 120,
-    mass: 0.5
+    damping: 26,
+    stiffness: 140,
+    mass: 0.3,
+    restDelta: 0.001,
   });
 
   return (
     <section
       ref={containerRef}
-      className="relative h-[400vh] bg-black"
+      className="relative h-[250vh] bg-black"
     >
       {/* ── Sticky Container ── */}
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden py-24">
