@@ -237,6 +237,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hide native cursor inside the hero — custom cursor renders in its place */
+.hero-cursor-none,
+.hero-cursor-none * {
+  cursor: none;
+}
+
 /* Custom Button Hover Effects */
 .btn-gradient {
   position: relative;
