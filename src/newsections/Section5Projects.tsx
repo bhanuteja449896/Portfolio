@@ -7,6 +7,7 @@ import {
   useReducedMotion,
   AnimatePresence,
 } from "framer-motion";
+import { PROJECTS_DATA } from "../data/portfolioData";
 
 /* ─────────────────────────────────────────────────────────────────────────
    Constants
@@ -14,55 +15,7 @@ import {
 const ACCENT = "#298DFF";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Project data
-───────────────────────────────────────────────────────────────────────── */
-interface Project {
-  id: string;
-  index: string;
-  title: string;
-  tagline: string;
-  description: string;
-  metric: { value: string; label: string };
-  stack: string[];
-  accentLabel: string;
-}
-
-const PROJECTS: Project[] = [
-  {
-    id: "ai-college",
-    index: "01",
-    title: "AI-Integrated College Data Management System",
-    tagline: "AI-powered college data insights platform",
-    description:
-      "An AI-powered backend system enabling natural language queries on structured college data. Combines REST API design with intelligent query parsing to dramatically reduce manual effort.",
-    metric: { value: "40%", label: "Manual query effort reduction" },
-    stack: ["Python", "FastAPI", "REST APIs", "AI Integration", "SQL / NoSQL"],
-    accentLabel: "AI · Backend",
-  },
-  {
-    id: "digital-wallet",
-    index: "02",
-    title: "Digital Wallet Payment System",
-    tagline: "Secure digital wallet with real-time transactions",
-    description:
-      "Built a secure digital wallet system with robust backend validation, real-time transaction handling, and production-oriented deployment on AWS infrastructure.",
-    metric: { value: "1000+", label: "Real-time transactions processed" },
-    stack: ["Python", "Django", "React.js", "PostgreSQL", "AWS (EC2, S3, RDS)"],
-    accentLabel: "FinTech · Full Stack",
-  },
-  {
-    id: "gatepass",
-    index: "03",
-    title: "College Gatepass Automation System",
-    tagline: "Automated gatepass workflow for colleges",
-    description:
-      "A full-stack automation platform replacing manual workflows with real-time dashboards, role-based access control, and digital approval chains.",
-    metric: { value: "90%", label: "Reduction in manual processing time" },
-    stack: ["Python", "Django", "React.js", "PostgreSQL"],
-    accentLabel: "Automation · Full Stack",
-  },
-];
+type Project = typeof PROJECTS_DATA[number];
 
 /* ─────────────────────────────────────────────────────────────────────────
    Tech chip
@@ -626,7 +579,7 @@ export default function Section5Projects() {
   useEffect(() => {
     return scrollYProgress.on("change", (v) => {
       setProgressPct(Math.round(v * 100));
-      setActiveIdx(Math.min(PROJECTS.length - 1, Math.floor(v * PROJECTS.length)));
+      setActiveIdx(Math.min(PROJECTS_DATA.length - 1, Math.floor(v * PROJECTS_DATA.length)));
     });
   }, [scrollYProgress]);
 
@@ -691,11 +644,11 @@ export default function Section5Projects() {
                 className="text-[11px] font-semibold uppercase tracking-[0.18em]"
                 style={{ color: ACCENT }}
               >
-                {PROJECTS[activeIdx].accentLabel}
+                {PROJECTS_DATA[activeIdx].accentLabel}
               </div>
               <div className="mt-0.5 font-mono text-[10px] text-white/24">
                 {String(activeIdx + 1).padStart(2, "0")} /{" "}
-                {String(PROJECTS.length).padStart(2, "0")}
+                {String(PROJECTS_DATA.length).padStart(2, "0")}
               </div>
             </motion.div>
           </div>
@@ -713,16 +666,15 @@ export default function Section5Projects() {
               }}
             />
 
-            {/* project cards container */}
             <div className="relative w-full" style={{ height: 520 }}>
-              {PROJECTS.map((project, i) => (
+              {PROJECTS_DATA.map((project, i) => (
                 <SpotlightCard
                   key={project.id}
                   project={project}
                   cardIndex={i}
                   scrollProgress={progress}
                   reduced={reduced}
-                  totalProjects={PROJECTS.length}
+                  totalProjects={PROJECTS_DATA.length}
                 />
               ))}
             </div>
@@ -745,9 +697,8 @@ export default function Section5Projects() {
               />
             </div>
 
-            {/* project nav dots */}
             <div className="flex items-center gap-2">
-              {PROJECTS.map((_, i) => (
+              {PROJECTS_DATA.map((_, i) => (
                 <motion.span
                   key={i}
                   className="block rounded-full"
@@ -762,7 +713,6 @@ export default function Section5Projects() {
               ))}
             </div>
 
-            {/* project title display */}
             <motion.div
               key={activeIdx}
               initial={{ opacity: 0, x: 8 }}
@@ -770,7 +720,7 @@ export default function Section5Projects() {
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="ml-2 text-[11px] font-medium text-white/30"
             >
-              {PROJECTS[activeIdx].title.split(" ").slice(0, 4).join(" ")}…
+              {PROJECTS_DATA[activeIdx].title.split(" ").slice(0, 4).join(" ")}…
             </motion.div>
 
             <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.14em] text-white/18">
@@ -820,7 +770,7 @@ export default function Section5Projects() {
 
           {/* mobile project cards */}
           <div className="flex flex-col gap-6">
-            {PROJECTS.map((project, i) => (
+            {PROJECTS_DATA.map((project, i) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 32 }}

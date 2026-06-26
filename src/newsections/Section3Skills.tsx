@@ -8,66 +8,15 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { SKILLS_DATA } from "../data/portfolioData";
 
 /* ─── constants ─────────────────────────────────────────────── */
 const ACCENT = "#298DFF";
 const PANEL_W = 390; // px — each panel's fixed width
 const PANEL_GAP = 36; // px — gap between panels
 
-/* ─── data ──────────────────────────────────────────────────── */
-const CATS = [
-  {
-    id: "backend",
-    label: "Backend",
-    num: "01",
-    sub: "Server-side foundations",
-    featured: "Python",
-    skills: ["Python", "FastAPI", "Django", "Express.js"],
-  },
-  {
-    id: "frontend",
-    label: "Frontend",
-    num: "02",
-    sub: "Client-side delivery",
-    featured: "React.js",
-    skills: ["JavaScript", "React.js"],
-  },
-  {
-    id: "database",
-    label: "Database",
-    num: "03",
-    sub: "Data persistence layer",
-    featured: "PostgreSQL",
-    skills: ["SQL", "PostgreSQL", "NoSQL"],
-  },
-  {
-    id: "cloud",
-    label: "Cloud",
-    num: "04",
-    sub: "Infrastructure & deployment",
-    featured: "AWS",
-    skills: ["AWS (EC2, S3, RDS)"],
-  },
-  {
-    id: "tools",
-    label: "Tools",
-    num: "05",
-    sub: "Development workflow",
-    featured: "Docker",
-    skills: ["Git", "GitHub", "Docker", "Postman"],
-  },
-  {
-    id: "core",
-    label: "Core CS",
-    num: "06",
-    sub: "Engineering fundamentals",
-    featured: "DSA",
-    skills: ["Data Structures & Algorithms", "OOP", "DBMS", "REST API Design"],
-  },
-] as const;
-
-type Cat = (typeof CATS)[number];
-const N = CATS.length;
+type Cat = (typeof SKILLS_DATA)[number];
+const N = SKILLS_DATA.length;
 
 /* ─── SkillChip ─────────────────────────────────────────────── */
 function SkillChip({ label }: { label: string }) {
@@ -184,7 +133,7 @@ function SkillPanel({
             className="font-bold leading-none tracking-tight text-white"
             style={{ fontSize: "clamp(2rem, 3.4vw, 2.8rem)" }}
           >
-            {cat.featured}
+            {cat.title}
           </div>
         </motion.div>
 
@@ -402,7 +351,7 @@ export default function Section3Skills() {
                 className="text-[11px] font-semibold uppercase tracking-[0.18em]"
                 style={{ color: ACCENT }}
               >
-                {CATS[activeIdx].label}
+                {SKILLS_DATA[activeIdx].label}
               </div>
               <div className="mt-0.5 font-mono text-[10px] text-white/24">
                 {String(activeIdx + 1).padStart(2, "0")} / {String(N).padStart(2, "0")}
@@ -418,7 +367,7 @@ export default function Section3Skills() {
               style={{ background: "rgba(255,255,255,0.06)" }}
             />
 
-            {CATS.map((c, i) => {
+            {SKILLS_DATA.map((c, i) => {
               const isActive = i === activeIdx;
               return (
                 <div key={c.id} className="relative mr-6 pb-3 last:mr-0">
@@ -455,7 +404,7 @@ export default function Section3Skills() {
                 gap: `${PANEL_GAP}px`,
               }}
             >
-              {CATS.map((cat, i) => (
+              {SKILLS_DATA.map((cat, i) => (
                 <SkillPanel
                   key={cat.id}
                   cat={cat}
@@ -486,7 +435,7 @@ export default function Section3Skills() {
 
             {/* segment dots */}
             <div className="flex items-center gap-2">
-              {CATS.map((_, i) => (
+              {SKILLS_DATA.map((_, i) => (
                 <motion.span
                   key={i}
                   className="block rounded-full"
@@ -553,7 +502,7 @@ export default function Section3Skills() {
 
           {/* mobile category cards */}
           <div className="flex flex-col gap-4">
-            {CATS.map((cat, i) => (
+            {SKILLS_DATA.map((cat, i) => (
               <motion.div
                 key={cat.id}
                 initial={{ opacity: 0, y: 22 }}
@@ -599,7 +548,7 @@ export default function Section3Skills() {
                   </div>
 
                   <div className="mb-0.5 text-[22px] font-bold leading-none text-white">
-                    {cat.featured}
+                    {cat.title}
                   </div>
 
                   <h3 className="mb-0.5 text-[14px] font-semibold text-white/80">

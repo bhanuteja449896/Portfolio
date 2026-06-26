@@ -6,6 +6,7 @@ import {
   useSpring,
   useReducedMotion,
 } from "framer-motion";
+import { EXPERIENCE_CARDS } from "../data/portfolioData";
 
 /* ─────────────────────────────────────────────────────────────────────────
    Constants
@@ -13,63 +14,7 @@ import {
 const ACCENT = "#298DFF";
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Card data
-───────────────────────────────────────────────────────────────────────── */
-const CARDS = [
-  {
-    id: "identity",
-    index: "01",
-    type: "Identity",
-    company: "VarenyamAI",
-    role: "Python Full Stack Developer Intern",
-    period: "June 2025 – Dec 2025",
-    headline: "Full Stack Engineering",
-    body: "Worked as a full-stack developer intern building production-grade backend services and responsive web interfaces at an AI-first startup.",
-    tags: ["Python", "FastAPI", "React.js", "REST APIs"],
-    accent: ACCENT,
-  },
-  {
-    id: "backend",
-    index: "02",
-    type: "Backend Impact",
-    company: "REST API Performance",
-    role: "Python · FastAPI · Optimization",
-    period: "API Engineering",
-    headline: "30% Faster APIs",
-    body: "Designed and optimized RESTful APIs using Python and FastAPI. Profiled bottlenecks, implemented async handlers, and applied response caching — achieving a 30% reduction in average response time.",
-    tags: ["Python", "FastAPI", "Async", "Caching"],
-    metric: { value: "30%", label: "Faster API Response" },
-    accent: ACCENT,
-  },
-  {
-    id: "frontend",
-    index: "03",
-    type: "Frontend Impact",
-    company: "UI Performance",
-    role: "React.js · Optimization · UX",
-    period: "Frontend Engineering",
-    headline: "25% Faster Page Load",
-    body: "Built responsive React.js interfaces with lazy loading, code splitting, and optimized asset delivery — resulting in 25% faster page load times and measurably improved user engagement.",
-    tags: ["React.js", "Performance", "Lazy Loading", "UX"],
-    metric: { value: "25%", label: "Faster Page Load" },
-    accent: ACCENT,
-  },
-  {
-    id: "stack",
-    index: "04",
-    type: "Tech Stack",
-    company: "Technologies Used",
-    role: "Full Stack · Systems · Tooling",
-    period: "End-to-End Contribution",
-    headline: "Stack & Execution",
-    body: "Contributed across the full stack — from API architecture and database design to responsive front-end delivery. Focused on clean code, system-level thinking, and measurable performance outcomes.",
-    tags: ["Python", "FastAPI", "React.js", "REST APIs", "Performance Optimization"],
-    accent: ACCENT,
-  },
-] as const;
-
-type CardData = (typeof CARDS)[number];
+type CardData = (typeof EXPERIENCE_CARDS)[number];
 
 /* ─────────────────────────────────────────────────────────────────────────
    Background
@@ -194,7 +139,7 @@ interface ExpCardProps {
 }
 
 function ExpCard({ card, cardIndex, scrollProgress, reduced }: ExpCardProps) {
-  const n = CARDS.length;
+  const n = EXPERIENCE_CARDS.length;
   const segmentSize = 1 / n;
   const peakStart = cardIndex * segmentSize;
   const peakEnd = peakStart + segmentSize;
@@ -353,8 +298,8 @@ function ExpCard({ card, cardIndex, scrollProgress, reduced }: ExpCardProps) {
             {hasMetric && (
               <div className="flex-shrink-0">
                 <MetricBadge
-                  value={(card as typeof CARDS[1]).metric.value}
-                  label={(card as typeof CARDS[1]).metric.label}
+                  value={(card as typeof EXPERIENCE_CARDS[1]).metric.value}
+                  label={(card as typeof EXPERIENCE_CARDS[1]).metric.label}
                 />
               </div>
             )}
@@ -456,10 +401,10 @@ function MobileCard({ card, delay }: { card: CardData; delay: number }) {
                 className="text-[1.1rem] font-bold leading-none"
                 style={{ color: ACCENT }}
               >
-                {(card as typeof CARDS[1]).metric.value}
+                {(card as typeof EXPERIENCE_CARDS[1]).metric.value}
               </div>
               <div className="mt-0.5 text-[9px] uppercase tracking-[0.14em] text-white/45">
-                {(card as typeof CARDS[1]).metric.label}
+                {(card as typeof EXPERIENCE_CARDS[1]).metric.label}
               </div>
             </div>
           )}
@@ -518,7 +463,7 @@ export default function Section4Experience() {
   React.useEffect(() => {
     return scrollYProgress.on("change", (v) => {
       setProgressPct(Math.round(v * 100));
-      setActiveCard(Math.min(CARDS.length - 1, Math.floor(v * CARDS.length)));
+      setActiveCard(Math.min(EXPERIENCE_CARDS.length - 1, Math.floor(v * EXPERIENCE_CARDS.length)));
     });
   }, [scrollYProgress]);
 
@@ -584,11 +529,11 @@ export default function Section4Experience() {
                 className="text-[11px] font-semibold uppercase tracking-[0.18em]"
                 style={{ color: ACCENT }}
               >
-                {CARDS[activeCard].type}
+                {EXPERIENCE_CARDS[activeCard].type}
               </div>
               <div className="mt-0.5 font-mono text-[10px] text-white/24">
                 {String(activeCard + 1).padStart(2, "0")} /{" "}
-                {String(CARDS.length).padStart(2, "0")}
+                {String(EXPERIENCE_CARDS.length).padStart(2, "0")}
               </div>
             </motion.div>
           </div>
@@ -607,12 +552,12 @@ export default function Section4Experience() {
 
             {/* stacked cards */}
             <div className="relative w-full max-w-[640px]" style={{ height: 340 }}>
-              {CARDS.map((card, i) => (
+              {EXPERIENCE_CARDS.map((card, i) => (
                 <ExpCard
                   key={card.id}
                   card={card}
                   cardIndex={i}
-                  totalCards={CARDS.length}
+                  totalCards={EXPERIENCE_CARDS.length}
                   scrollProgress={progress}
                   reduced={reduced}
                 />
@@ -697,7 +642,7 @@ export default function Section4Experience() {
             </div>
 
             <div className="flex items-center gap-2">
-              {CARDS.map((_, i) => (
+              {EXPERIENCE_CARDS.map((_, i) => (
                 <motion.span
                   key={i}
                   className="block rounded-full"
@@ -793,7 +738,7 @@ export default function Section4Experience() {
 
           {/* mobile experience cards */}
           <div className="flex flex-col gap-4">
-            {CARDS.map((card, i) => (
+            {EXPERIENCE_CARDS.map((card, i) => (
               <MobileCard key={card.id} card={card} delay={i * 0.08} />
             ))}
           </div>

@@ -9,6 +9,7 @@ import {
   useTransform,
   animate,
 } from "framer-motion";
+import { PROBLEM_SOLVING_STATS } from "../data/portfolioData";
 
 const ACCENT = "#298DFF";
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -275,7 +276,7 @@ export default function Section6ProblemSolving() {
             className="font-bold leading-none tracking-tighter text-white drop-shadow-2xl"
             style={{ fontSize: "clamp(3.5rem, 8vw, 6rem)" }}
           >
-            <AnimatedCounter value={800} inView={isInView} />
+            <AnimatedCounter value={PROBLEM_SOLVING_STATS.leetcodeCount} inView={isInView} />
             <span style={{ color: ACCENT }}>+</span>
           </h2>
         </div>

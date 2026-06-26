@@ -10,6 +10,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { ArrowUpRight, MapPin, Database, Server, Sparkles } from "lucide-react";
+import { HERO_CARDS, HERO_PILLS, PERSONAL_INFO } from "../data/portfolioData";
 
 const ACCENT = "#298DFF";
 
@@ -50,50 +51,7 @@ const cardVariants: Variants = {
 };
 
 /* ------------------------------------------------------------------ */
-/* Card data                                                           */
-/* ------------------------------------------------------------------ */
-
-type CardItem = {
-  title: string;
-  meta: string;
-  icon: React.ReactNode;
-  className: string;
-  rotate: number;
-  depth: number;
-  floatDelay: number;
-};
-
-const CARDS: CardItem[] = [
-  {
-    title: "Backend APIs",
-    meta: "FastAPI / Django / REST",
-    icon: <Server className="h-5 w-5" />,
-    className: "left-0 top-4 z-30 w-[270px]",
-    rotate: -4,
-    depth: 60,
-    floatDelay: 0,
-  },
-  {
-    title: "Data & Storage",
-    meta: "PostgreSQL / SQL / NoSQL",
-    icon: <Database className="h-5 w-5" />,
-    className: "right-0 top-24 z-20 w-[260px]",
-    rotate: 3,
-    depth: 110,
-    floatDelay: 0.8,
-  },
-  {
-    title: "AI Insights",
-    meta: "Natural language + structured systems",
-    icon: <Sparkles className="h-5 w-5" />,
-    className: "left-10 bottom-2 z-10 w-[280px]",
-    rotate: -2,
-    depth: 160,
-    floatDelay: 1.6,
-  },
-];
-
-const PILLS = ["FastAPI", "Django", "React.js", "PostgreSQL", "AWS"];
+// Data imported from portfolioData
 
 /* ------------------------------------------------------------------ */
 /* Floating tilt card                                                  */
@@ -104,7 +62,7 @@ function TiltCard({
   scrollY,
   reduced,
 }: {
-  card: CardItem;
+  card: typeof HERO_CARDS[0];
   scrollY: MotionValue<number>;
   reduced: boolean;
 }) {
@@ -295,7 +253,7 @@ export default function Section1Hero({
     >
       <HeroBackground scrollY={smoothScroll} reduced={reduced} />
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pt-28 pb-20 sm:px-8 lg:px-12">
+      <div className="relative z-10 flex min-h-screen w-full flex-col justify-center px-10 pt-16 pb-20 xl:px-14">
         <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
 
           {/* LEFT COLUMN */}
@@ -316,7 +274,7 @@ export default function Section1Hero({
                 style={{ background: ACCENT, boxShadow: `0 0 8px ${ACCENT}` }}
               />
               <span className="text-[12px] font-medium tracking-[0.18em] text-white/70">
-                PYTHON FULL STACK DEVELOPER
+                {PERSONAL_INFO.role.toUpperCase()}
               </span>
             </motion.div>
 
@@ -337,9 +295,7 @@ export default function Section1Hero({
               variants={itemVariants}
               className="mt-6 max-w-md text-[15px] leading-relaxed text-white/55"
             >
-              I design and develop high-performance backend systems, FastAPI and
-              Django services, and polished React interfaces deployed for
-              real-world scale.
+              {PERSONAL_INFO.heroDescription}
             </motion.p>
 
             {/* name + location */}
@@ -348,12 +304,12 @@ export default function Section1Hero({
               className="mt-7 flex items-center gap-4 text-sm"
             >
               <span className="font-semibold tracking-tight text-white">
-                Bhanu Teja Makkineni
+                {PERSONAL_INFO.name}
               </span>
               <span className="h-4 w-px bg-white/15" />
               <span className="flex items-center gap-1.5 text-white/45">
                 <MapPin className="h-3.5 w-3.5" style={{ color: ACCENT }} />
-                Hyderabad, India
+                {PERSONAL_INFO.location}
               </span>
             </motion.div>
 
@@ -394,7 +350,7 @@ export default function Section1Hero({
               variants={itemVariants}
               className="mt-10 flex flex-wrap gap-2.5"
             >
-              {PILLS.map((pill) => (
+              {HERO_PILLS.map((pill) => (
                 <motion.span
                   key={pill}
                   whileHover={{ y: -3 }}
@@ -422,7 +378,7 @@ export default function Section1Hero({
             animate="show"
             className="relative mx-auto hidden h-[440px] w-full max-w-[520px] lg:block"
           >
-            {CARDS.map((card) => (
+            {HERO_CARDS.map((card) => (
               <TiltCard
                 key={card.title}
                 card={card}
@@ -431,25 +387,7 @@ export default function Section1Hero({
               />
             ))}
 
-            {/* floating badge */}
-            <motion.div
-              variants={cardVariants}
-              animate={reduced ? undefined : { y: [0, 8, 0] }}
-              transition={
-                reduced
-                  ? undefined
-                  : { duration: 5, repeat: Infinity, ease: "easeInOut" }
-              }
-              className="absolute -bottom-4 right-2 z-40 flex items-center gap-2 rounded-full border border-[#298DFF]/30 bg-[#298DFF]/10 px-4 py-2 backdrop-blur-md"
-            >
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ background: ACCENT, boxShadow: `0 0 8px ${ACCENT}` }}
-              />
-              <span className="text-[12.5px] font-semibold text-white">
-                800+ LeetCode Problems
-              </span>
-            </motion.div>
+
           </motion.div>
 
           {/* MOBILE card stack */}
@@ -459,7 +397,7 @@ export default function Section1Hero({
             animate="show"
             className="flex flex-col gap-3 lg:hidden"
           >
-            {CARDS.map((card) => (
+            {HERO_CARDS.map((card) => (
               <motion.div
                 key={card.title}
                 variants={cardVariants}
@@ -483,15 +421,7 @@ export default function Section1Hero({
               </motion.div>
             ))}
 
-            <div className="mt-1 flex items-center gap-2 self-start rounded-full border border-[#298DFF]/30 bg-[#298DFF]/10 px-4 py-2">
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ background: ACCENT }}
-              />
-              <span className="text-[12.5px] font-semibold text-white">
-                800+ LeetCode Problems
-              </span>
-            </div>
+
           </motion.div>
 
         </div>

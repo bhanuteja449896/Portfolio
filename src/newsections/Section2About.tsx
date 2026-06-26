@@ -9,6 +9,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { BookOpen, MapPin, Trophy, User } from "lucide-react";
+import { PERSONAL_INFO, EDUCATION_DATA, PROBLEM_SOLVING_STATS, ACHIEVEMENTS_DATA } from "../data/portfolioData";
 
 const ACCENT = "#298DFF";
 
@@ -240,7 +241,7 @@ export default function Section2About() {
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
           <AboutBackground />
 
-          <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-10 xl:px-14">
+          <div className="relative z-10 flex h-full w-full items-center px-10 xl:px-14">
             <div className="grid w-full items-center gap-6 lg:grid-cols-[1.1fr_0.9fr]">
 
               {/* ────────── LEFT ────────── */}
@@ -285,7 +286,7 @@ export default function Section2About() {
                   transition={{ duration: 0.6, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
                   className="mt-3.5 text-[14.5px] font-medium text-white/55"
                 >
-                  Python Full Stack Developer focused on scalable systems
+                  {PERSONAL_INFO.role} focused on scalable systems
                 </motion.p>
 
                 {/* divider */}
@@ -306,10 +307,7 @@ export default function Section2About() {
                   transition={{ duration: 0.6, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
                   className="max-w-[390px] text-[14px] leading-[1.8] text-white/45"
                 >
-                  Python full stack developer specializing in FastAPI, Django,
-                  React.js and SQL, building scalable and secure web applications
-                  deployed on AWS. Focused on performance, reliability and
-                  real-world problem solving.
+                  {PERSONAL_INFO.aboutDescription}
                 </motion.p>
 
                 {/* stage dots — glow with their card */}
@@ -372,16 +370,16 @@ export default function Section2About() {
                   yOffset={yO1}
                 >
                   <h3 className="text-[22px] font-bold leading-tight tracking-tight text-white">
-                    Bhanu Teja
+                    {PERSONAL_INFO.name.split(" ").slice(0, -1).join(" ")}
                     <br />
-                    Makkineni
+                    {PERSONAL_INFO.name.split(" ").slice(-1)}
                   </h3>
                   <p className="mt-2 text-[12.5px] text-white/48">
-                    Python Full Stack Developer
+                    {PERSONAL_INFO.role}
                   </p>
                   <div className="mt-2.5 flex items-center gap-1.5">
                     <MapPin className="h-3 w-3 shrink-0" style={{ color: ACCENT }} />
-                    <span className="text-[11.5px] text-white/34">Hyderabad, India</span>
+                    <span className="text-[11.5px] text-white/34">{PERSONAL_INFO.location}</span>
                   </div>
                 </InfoCard>
 
@@ -399,16 +397,14 @@ export default function Section2About() {
                   yOffset={yO2}
                 >
                   <h3 className="text-[13px] font-semibold leading-snug text-white">
-                    B.Tech in Computer Science
+                    {EDUCATION_DATA.degree.split(" (")[0]}
                     <br />
-                    and Engineering (IoT)
+                    {EDUCATION_DATA.degree.includes("(") ? `(${EDUCATION_DATA.degree.split("(")[1]}` : ""}
                   </h3>
                   <p className="mt-1.5 text-[11.5px] leading-relaxed text-white/42">
-                    Malla Reddy College of Engineering
-                    <br />
-                    and Technology
+                    {EDUCATION_DATA.institution}
                   </p>
-                  <p className="mt-1 text-[11px] text-white/28">Nov 2022 – May 2026</p>
+                  <p className="mt-1 text-[11px] text-white/28">{EDUCATION_DATA.period}</p>
                   <div
                     className="mt-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1"
                     style={{
@@ -419,7 +415,7 @@ export default function Section2About() {
                     <span className="text-[11px] font-semibold" style={{ color: ACCENT }}>
                       CGPA
                     </span>
-                    <span className="text-[13px] font-bold text-white">9.04</span>
+                    <span className="text-[13px] font-bold text-white">{EDUCATION_DATA.cgpa}</span>
                   </div>
                 </InfoCard>
 
@@ -438,9 +434,9 @@ export default function Section2About() {
                 >
                   <div className="space-y-3">
                     {[
-                      { v: "800+", l: "LeetCode problems solved" },
-                      { v: "2+",   l: "client projects" },
-                      { v: "500+", l: "community members" },
+                      { v: `${PROBLEM_SOLVING_STATS.leetcodeCount}+`, l: "LeetCode problems solved" },
+                      { v: `${ACHIEVEMENTS_DATA.find((a) => a.iconKey === "Project")?.badge.split(" ")[0]}`, l: "client projects" },
+                      { v: `${ACHIEVEMENTS_DATA.find((a) => a.iconKey === "Community")?.badge.split(" ")[0]}`, l: "community members" },
                     ].map(({ v, l }) => (
                       <div key={v} className="flex items-baseline gap-2">
                         <span className="text-[21px] font-bold text-white">{v}</span>

@@ -11,6 +11,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { Mail, Phone, Github, Linkedin, Globe, X, ArrowRight } from "lucide-react";
+import { PERSONAL_INFO } from "../data/portfolioData";
 
 const ACCENT = "#298DFF";
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -197,36 +198,38 @@ export default function Section9Contact() {
           </motion.p>
 
           <motion.div variants={childVariants} className="flex flex-col gap-4 w-full max-w-sm">
-            <a href="mailto:bhanutejamakkineni@gmail.com" className="group flex items-center gap-4 rounded-xl border border-white/5 bg-white/[0.02] p-4 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.04]">
+            <a href={`mailto:${PERSONAL_INFO.email}`} className="group flex items-center gap-4 rounded-xl border border-white/5 bg-white/[0.02] p-4 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.04]">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/[0.04] text-white/60 group-hover:text-[#298DFF] transition-colors">
                 <Mail className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase tracking-wider text-white/40">Email</span>
-                <span className="text-sm font-medium text-white/90">bhanutejamakkineni@gmail.com</span>
+                <span className="text-sm font-medium text-white/90">{PERSONAL_INFO.email}</span>
               </div>
             </a>
 
-            <a href="tel:+918328653599" className="group flex items-center gap-4 rounded-xl border border-white/5 bg-white/[0.02] p-4 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.04]">
+            <a href={`tel:${PERSONAL_INFO.phone.replace(/\\s+/g, '')}`} className="group flex items-center gap-4 rounded-xl border border-white/5 bg-white/[0.02] p-4 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.04]">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/[0.04] text-white/60 group-hover:text-[#298DFF] transition-colors">
                 <Phone className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase tracking-wider text-white/40">Phone</span>
-                <span className="text-sm font-medium text-white/90">+91 8328653599</span>
+                <span className="text-sm font-medium text-white/90">{PERSONAL_INFO.phone}</span>
               </div>
             </a>
           </motion.div>
 
           <motion.div variants={childVariants} className="flex items-center gap-4 mt-8">
             {[
-              { icon: <Github className="h-5 w-5" />, label: "GitHub", href: "#" },
-              { icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn", href: "#" },
-              { icon: <Globe className="h-5 w-5" />, label: "Portfolio", href: "#" },
+              { icon: <Github className="h-5 w-5" />, label: "GitHub", href: PERSONAL_INFO.socialLinks.github, target: "_blank", rel: "noopener noreferrer" },
+              { icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn", href: PERSONAL_INFO.socialLinks.linkedin, target: "_blank", rel: "noopener noreferrer" },
+              { icon: <Globe className="h-5 w-5" />, label: "Portfolio", href: PERSONAL_INFO.socialLinks.portfolio, target: "_blank", rel: "noopener noreferrer" },
             ].map((link, i) => (
               <a
                 key={i}
                 href={link.href}
+                target={link.target}
+                rel={link.rel}
                 className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-transparent text-white/60 transition-all duration-300 hover:border-[#298DFF]/40 hover:bg-[#298DFF]/10 hover:text-[#298DFF]"
                 aria-label={link.label}
               >
